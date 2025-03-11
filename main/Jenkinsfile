@@ -1,17 +1,13 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
-                echo 'Building the application...'
                 sh 'g++ -o hello hello.cpp'
             }
         }
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                sh 'chmod +x hello'  // Ensure executable permission
                 sh './hello'
             }
         }
@@ -21,13 +17,9 @@ pipeline {
             }
         }
     }
-    
     post {
-        success {
-            echo 'Pipeline executed successfully!'
-        }
         failure {
-            echo 'Pipeline failed. Check logs.'
+            echo 'Pipeline failed'
         }
     }
 }
