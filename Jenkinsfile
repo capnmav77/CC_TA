@@ -1,11 +1,12 @@
 pipeline {
-    agent any
+    agent any  // Runs on any available Jenkins agent
 
     stages {
         stage('Build') {
             steps {
                 script {
-                    sh 'g++ -o output main.cpp'  // Compile the C++ file
+                    echo 'Building the C++ program...'
+                    sh 'g++ -o hello_exec main/hello.cpp'  // Compiles hello.cpp
                 }
             }
         }
@@ -13,24 +14,25 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh './output'  // Run the compiled file
+                    echo 'Running the compiled program...'
+                    sh './hello_exec'  // Executes the compiled binary
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+                script {
+                    echo 'Deploying the application...'
+                    sh 'echo "Deployment successful!"'
+                }
             }
         }
     }
 
     post {
         failure {
-            echo 'Pipeline failed! ❌'
-        }
-        success {
-            echo 'Pipeline completed successfully! ✅'
+            echo 'Pipeline failed! Please check errors.'
         }
     }
 }
