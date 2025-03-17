@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the C++ program...'
-                    sh 'g++ -o hello_exec main/hello.cpp'  // Compiles hello.cpp
+                    sh 'g++ -o hello_exec main/hello.cpp'  // Compile hello.cpp
                 }
             }
         }
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running the compiled program...'
-                    sh './hello_exec'  // Executes the compiled binary
+                    sh './non_existent_binary'  // Intentional error to make this stage fail
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
 
     post {
         failure {
-            echo 'Pipeline failed! Please check errors.'
+            echo 'Pipeline failed! Please check errors.'  // Failure handling message
         }
     }
 }
